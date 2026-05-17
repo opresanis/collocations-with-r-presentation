@@ -1,0 +1,83 @@
+/* Title on title slide */
+#title-slide .title {
+  font-size: 2.6em;
+}
+
+/* Subtitle on title slide */
+#title-slide .subtitle {
+  font-size: 1.2em;
+  color: #666666;
+}
+
+
+
+/* --- Headers (H1, H2, H3) --- */
+.reveal h1 { font-size: 3.0em; color: #2c3e50; }
+.reveal h2 { font-size: 2.0em; color: #34495e; }
+.reveal h3 { font-size: 1.5em; }
+
+/* --- Body Text --- */
+.reveal .slides {
+  font-size: 34px; /* Default base size for all text */
+}
+
+
+/* REFERENCES */
+
+/* Space between separate bibliography entries */
+.reveal .bibliography .hanging-indent {
+  margin-bottom: 0.75em; 
+}
+
+/* Line spacing within a single entry */
+.reveal .references {
+  font-size: 0.6em;
+  line-height: 1.4;
+}
+
+
+/* --- Code Snippets --- */
+/* This targets the container and the code inside backticks */
+.reveal pre.sourceCode code {
+  font-size: 1em;       /* Relative to body text */
+  line-height: 1.2em;
+  padding: 10px;
+}
+
+/* Inline code (text inside single backticks) */
+.reveal code {
+  font-family: var(--reveal-code-font);
+  background-color: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* In styles.css */
+.compact-code {
+  font-size: 0.75em !important;
+  line-height: 1.5 !important;
+}
+
+
+.smaller {
+  font-size: 0.7em !important;
+  line-height: 1.1 !important;
+}
+
+
+.tiny {
+  font-size: 0.5em !important;
+  line-height: 0.9 !important;
+}
+
+
+/* For the smaller tables */
+.small-table { font-size: 0.4em; }
+
+
+.highlight-cell {
+  background-color: #ffcc00;
+  color: black;
+  padding: 2px 4px;
+  border-radius: 4px;
+}

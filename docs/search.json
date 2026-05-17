@@ -1,0 +1,191 @@
+[
+  {
+    "objectID": "index.html#goals-and-assumptions",
+    "href": "index.html#goals-and-assumptions",
+    "title": "Collocation Analysis using R",
+    "section": "Goals and Assumptions",
+    "text": "Goals and Assumptions\nGoals\n\n\nnot necessarily expected that one then programs their own code to calculate association measures\nmore to understand the algorithmic approach when implementing AMs\nand to reflect on the various variables and decision points from raw text to measure\nhope this also helps to understand why some apparently identical procedures may yield different outcomes\n\nAssumptions\n\nFamiliar with Chapter 3 of Brezina (2018)\nSome experience with any Corpus Lingustics tool (e.g. #LancsBox, AntConc, SketchEngine, WordSmith, …)\nLittle exposure to programming"
+  },
+  {
+    "objectID": "index.html#general-remarks",
+    "href": "index.html#general-remarks",
+    "title": "Collocation Analysis using R",
+    "section": "General Remarks",
+    "text": "General Remarks\nReproducibility: Sönning & Werner (2021), Schweinberger (2026),"
+  },
+  {
+    "objectID": "index.html#association-measures-and-collocation-frequency",
+    "href": "index.html#association-measures-and-collocation-frequency",
+    "title": "Collocation Analysis using R",
+    "section": "Association Measures and Collocation Frequency",
+    "text": "Association Measures and Collocation Frequency\nHow “sensitive” are common measures towards pure collocation frequency?"
+  },
+  {
+    "objectID": "index.html#a-first-interpretation",
+    "href": "index.html#a-first-interpretation",
+    "title": "Collocation Analysis using R",
+    "section": "A First Interpretation",
+    "text": "A First Interpretation\n\n\nExtending the simulation from t-score to other popular measures, we can observe that\n\nz-score and Dice show a very similar distribution. So does MI2 and LogDice\nMI, MI2 and MI3 share the same base shape, where the scatter narrows with increasing power\nLog-Likelihood looks like a linear relationship with some variation around the regression line\nMU and LogRatio seem to have the biggest variation\n\n\n\n\n\n\nThe scatter plots are created with the same base code as shared in the last meeting, using 10,000 random samples. All plots are build on the same underlying data."
+  },
+  {
+    "objectID": "index.html#measurement-distribution",
+    "href": "index.html#measurement-distribution",
+    "title": "Collocation Analysis using R",
+    "section": "Measurement Distribution",
+    "text": "Measurement Distribution\nNormalized between 0 and 1 for all measures."
+  },
+  {
+    "objectID": "index.html#boxplot",
+    "href": "index.html#boxplot",
+    "title": "Collocation Analysis using R",
+    "section": "Boxplot",
+    "text": "Boxplot\n\n\nThis is small text\n\nThis is small text\nThis is small text\nThis is small text"
+  },
+  {
+    "objectID": "index.html#boxplot---grid-version",
+    "href": "index.html#boxplot---grid-version",
+    "title": "Collocation Analysis using R",
+    "section": "Boxplot - Grid version",
+    "text": "Boxplot - Grid version\n\n\nThis is small text\n\nPoint one\nPoint two\nPoint three"
+  },
+  {
+    "objectID": "index.html#a-red-red-rose",
+    "href": "index.html#a-red-red-rose",
+    "title": "Collocation Analysis using R",
+    "section": "A red, red, rose",
+    "text": "A red, red, rose\nFor this exercise, we will work with the poem ‘A red, red rose’ by Robert Burns (Brezina (2018), Chapter 3)\n\n\n\nMy love is like a red, red rose that’s newly sprung in June: My love is like the melody\nthat’s sweetly played in tune. As fair art thou, my bonnie lass, so deep in love am I:\nAnd I will love thee still, my dear, till a’ the seas gang dry. Till a’ the seas gang dry, my\ndear, and the rocks melt wi’ the sun : And I will love thee still, my dear, while the sands\no’ life shall run. And fare thee weel, my only love, and fare thee weel a while! And I\nwill come again, my love, thou’it were ten thousand mile."
+  },
+  {
+    "objectID": "index.html#import-text",
+    "href": "index.html#import-text",
+    "title": "Collocation Analysis using R",
+    "section": "Import Text",
+    "text": "Import Text\nWe read the text into a string variable:\n\n\npoem &lt;-\n  \"My love is like a red, red rose that's newly sprung in June:\nMy love is like the melody that's sweetly played in tune.\nAs fair art thou, my bonnie lass, so deep in love am I:\nAnd I will love thee still, my dear, till a' the seas gang dry.\nTill a' the seas gang dry, my dear, and the rocks melt wi' the sun :\nAnd I will love thee still, my dear, while the sands o' life shall run.\nAnd fare thee weel, my only love, and fare thee weel a while!\nAnd I will come again, my love, thou' it were ten thousand mile.\"\n\n\nThere are may ways how data can be read into R, and there are methods for basically all common (and uncommon) formats. For Corpus Linguistics data mostly comes as text (.txt) or table (.csv) files."
+  },
+  {
+    "objectID": "index.html#tokenization-import-library",
+    "href": "index.html#tokenization-import-library",
+    "title": "Collocation Analysis using R",
+    "section": "Tokenization: Import Library",
+    "text": "Tokenization: Import Library\nTo tokenize the poem, we use the Penn Treebank word tokenizer from the tokenizers package (Mullen et al., 2018). Before we can use the respecting function, we have to download the package using install.packages(\"tokenizers\") and import it into our R session.\n\n\n#| label: tokenize-poem\n\nlibrary(tokenizers)"
+  },
+  {
+    "objectID": "index.html#tokenization-call-the-tokenizer",
+    "href": "index.html#tokenization-call-the-tokenizer",
+    "title": "Collocation Analysis using R",
+    "section": "Tokenization: Call the tokenizer",
+    "text": "Tokenization: Call the tokenizer\nTo tokenize the poem, we use the Penn Treebank word tokenizer from the tokenizers package (Mullen et al., 2018). Before we can use the respecting function, we have to download the package using install.packages(\"tokenizers\") and import it into our R session.\n\n\n#| label: tokenize-poem\n\nlibrary(tokenizers)\n\n# create a charter vector of tokens\n(poem_tokenized &lt;- tokenize_ptb(poem, simplify = TRUE))"
+  },
+  {
+    "objectID": "index.html#result-produced-by-the-tokenizer",
+    "href": "index.html#result-produced-by-the-tokenizer",
+    "title": "Collocation Analysis using R",
+    "section": "Result produced by the Tokenizer",
+    "text": "Result produced by the Tokenizer\n\n  [1] \"My\"       \"love\"     \"is\"       \"like\"     \"a\"        \"red\"      \",\"        \"red\"      \"rose\"     \"that\"    \n [11] \"'s\"       \"newly\"    \"sprung\"   \"in\"       \"June\"     \":\"        \"My\"       \"love\"     \"is\"       \"like\"    \n [21] \"the\"      \"melody\"   \"that\"     \"'s\"       \"sweetly\"  \"played\"   \"in\"       \"tune.\"    \"As\"       \"fair\"    \n [31] \"art\"      \"thou\"     \",\"        \"my\"       \"bonnie\"   \"lass\"     \",\"        \"so\"       \"deep\"     \"in\"      \n [41] \"love\"     \"am\"       \"I\"        \":\"        \"And\"      \"I\"        \"will\"     \"love\"     \"thee\"     \"still\"   \n [51] \",\"        \"my\"       \"dear\"     \",\"        \"till\"     \"a\"        \"'\"        \"the\"      \"seas\"     \"gang\"    \n [61] \"dry.\"     \"Till\"     \"a\"        \"'\"        \"the\"      \"seas\"     \"gang\"     \"dry\"      \",\"        \"my\"      \n [71] \"dear\"     \",\"        \"and\"      \"the\"      \"rocks\"    \"melt\"     \"wi\"       \"'\"        \"the\"      \"sun\"     \n [81] \":\"        \"And\"      \"I\"        \"will\"     \"love\"     \"thee\"     \"still\"    \",\"        \"my\"       \"dear\"    \n [91] \",\"        \"while\"    \"the\"      \"sands\"    \"o\"        \"'\"        \"life\"     \"shall\"    \"run.\"     \"And\"     \n[101] \"fare\"     \"thee\"     \"weel\"     \",\"        \"my\"       \"only\"     \"love\"     \",\"        \"and\"      \"fare\"    \n[111] \"thee\"     \"weel\"     \"a\"        \"while\"    \"!\"        \"And\"      \"I\"        \"will\"     \"come\"     \"again\"   \n[121] \",\"        \"my\"       \"love\"     \",\"        \"thou\"     \"'\"        \"it\"       \"were\"     \"ten\"      \"thousand\"\n[131] \"mile\"     \".\"      \n\n\nAs a next step, some further cleanup is necessary. The code used to do this can be found in the appendix Section 9.3.\n\n\nSome additional commentary of more peripheral interest."
+  },
+  {
+    "objectID": "index.html#final-result-clean-tokenized-text",
+    "href": "index.html#final-result-clean-tokenized-text",
+    "title": "Collocation Analysis using R",
+    "section": "Final Result: Clean Tokenized Text",
+    "text": "Final Result: Clean Tokenized Text\nAfter running the steps outlined in Section 9.3, we are getting the below results.\nThis clean text vector will be the basis for our following analysis.\n\n  [1] \"my\"       \"love\"     \"is\"       \"like\"     \"a\"        \"red\"      \"red\"      \"rose\"     \"that\"     \"is\"      \n [11] \"newly\"    \"sprung\"   \"in\"       \"june\"     \"my\"       \"love\"     \"is\"       \"like\"     \"the\"      \"melody\"  \n [21] \"that\"     \"is\"       \"sweetly\"  \"played\"   \"in\"       \"tune\"     \"as\"       \"fair\"     \"art\"      \"thou\"    \n [31] \"my\"       \"bonnie\"   \"lass\"     \"so\"       \"deep\"     \"in\"       \"love\"     \"am\"       \"i\"        \"and\"     \n [41] \"i\"        \"will\"     \"love\"     \"thee\"     \"still\"    \"my\"       \"dear\"     \"till\"     \"a\"        \"the\"     \n [51] \"seas\"     \"gang\"     \"dry\"      \"till\"     \"a\"        \"the\"      \"seas\"     \"gang\"     \"dry\"      \"my\"      \n [61] \"dear\"     \"and\"      \"the\"      \"rocks\"    \"melt\"     \"wi\"       \"the\"      \"sun\"      \"and\"      \"i\"       \n [71] \"will\"     \"love\"     \"thee\"     \"still\"    \"my\"       \"dear\"     \"while\"    \"the\"      \"sands\"    \"o\"       \n [81] \"life\"     \"shall\"    \"run\"      \"and\"      \"fare\"     \"thee\"     \"weel\"     \"my\"       \"only\"     \"love\"    \n [91] \"and\"      \"fare\"     \"thee\"     \"weel\"     \"a\"        \"while\"    \"and\"      \"i\"        \"will\"     \"come\"    \n[101] \"again\"    \"my\"       \"love\"     \"thou\"     \"it\"       \"were\"     \"ten\"      \"thousand\" \"mile\""
+  },
+  {
+    "objectID": "index.html#summary-tokenization",
+    "href": "index.html#summary-tokenization",
+    "title": "Collocation Analysis using R",
+    "section": "Summary Tokenization",
+    "text": "Summary Tokenization\nPoints to Consider\n\nEat spaghetti\nDrink wine"
+  },
+  {
+    "objectID": "index.html#observed-and-expected-tables",
+    "href": "index.html#observed-and-expected-tables",
+    "title": "Collocation Analysis using R",
+    "section": "Observed and Expected Tables",
+    "text": "Observed and Expected Tables\n\nTo construct the full set of data in the two tables, we have 14 values to consider.\n\n\n\n\nObserved Frequencies\n\n\n\n\nCollocate present (my)\nCollocate absent\nTotals\n\n\n\n\nNode present (love)\n\\(O_{11}\\)\n\\(O_{12}\\)\n\\(R_1\\)\n\n\nNode absent\n\\(O_{21}\\)\n\\(O_{22}\\)\n\\(R_2\\)\n\n\nTotals\n\\(C_1\\)\n\\(C_2\\)\n\\(N\\)\n\n\n\n\n\n\n\n\nExpected Frequencies\n\n\n\n\n\n\n\n\n\n\nCollocate present (my)\nCollocate absent\nTotals\n\n\n\n\nNode present (love)\n\\(E_{11} = \\frac{R_1 \\times C_1}{N}\\)\n\\(E_{12} = \\frac{R_1 \\times C_2}{N}\\)\n\\(R_1 \\times w\\)\n\n\nNode absent\n\\(E_{21} = \\frac{R_2 \\times C_1}{N}\\)\n\\(E_{22} = \\frac{R_2 \\times C_2}{N}\\)\n\\(R_2\\)\n\n\nTotals\n\\(C_1\\)\n\\(C_2\\)\n\\(N\\)\n\n\n\n\n\n\n\n\n\nIt looks like a lot to calculate. Lucily, only need the following 5 values:\n\n\n\nNumber of tokens in the whole corpus: \\(N\\)\n\n\n\n\nFrequency of the node in the whole corpus: \\(R_1\\)\n\n\n\n\nFrequency of the collocate in the whole corpus: \\(C_1\\)\n\n\n\n\nFrequency of the collocation (i.e. node + collocate) in the collocation window: \\(O_{11}\\)\n\n\n\n\nCollocation window size: \\(w\\) (can be symmetric or asymmetric)"
+  },
+  {
+    "objectID": "index.html#observed-and-expected-tables-1",
+    "href": "index.html#observed-and-expected-tables-1",
+    "title": "Collocation Analysis using R",
+    "section": "Observed and Expected Tables",
+    "text": "Observed and Expected Tables\n\nTo construct the full set of data in the two tables, we have 14 values to consider.\n\n\n\nObserved Frequencies\n\n\n\n\n\n\n\n\n\n\nCollocate present (my)\nCollocate absent\nTotals\n\n\n\n\nNode present (love)\n\\(O_{11}\\)\n\\(O_{12} = R_1 - O_{11}\\)\n\\(R_1\\)\n\n\nNode absent\n\\(O_{21} = C_1 - O_{11}\\)\n\\(O_{22} = R_2 - O_{21}\\)\n\\(R_2 = N - R_1\\)\n\n\nTotals\n\\(C_1\\)\n\\(C_2 = N - C_1\\)\n\\(N\\)\n\n\n\n\n\n\nExpected Frequencies\n\n\n\n\n\n\n\n\n\n\nCollocate present (my)\nCollocate absent\nTotals\n\n\n\n\nNode present (love)\n\\(E_{11} = \\frac{R_1 \\times C_1}{N}\\)\n\\(E_{12} = \\frac{R_1 \\times C_2}{N}\\)\n\\(R_1\\)\\(\\times w\\)\n\n\nNode absent\n\\(E_{21} = \\frac{R_2 \\times C_1}{N}\\)\n\\(E_{22} = \\frac{R_2 \\times C_2}{N}\\)\n\\(R_2\\)\n\n\nTotals\n\\(C_1\\)\n\\(C_2\\)\n\\(N\\)\n\n\n\n\n\n\n\nIn other words, we do have to determine\n\n\nfour tallied values, extracted from the corpus data\n\n\n\n\none parameter, decided by the researcher\n\n\n\n\nnine calculated values, applying some arithmetic to (1) and (2)"
+  },
+  {
+    "objectID": "index.html#determine-tallied-values-14",
+    "href": "index.html#determine-tallied-values-14",
+    "title": "Collocation Analysis using R",
+    "section": "Determine Tallied Values (1/4)",
+    "text": "Determine Tallied Values (1/4)\n\nMost of the values we need can be calculated straightforward from the token vector we have created earlier.\nThe Number of tokens in the whole corpus, \\(N\\), equals the number of elements in our vector, which can be derived using the length() function:\n\n\n# Number of tokens\n(N &lt;- length(poem_tokens))\n\n[1] 109\n\n\n\nFor the frequency of the node (\\(R_1\\)), we can ask which token is equal to the node, using the expression poem_tokens == \"love\". Note that == means “equal to” in many programming languages - like a single = in maths. This gives us a logical vecor of TRUE and FALSE’s. Since TRUE corresponds to 1 and FALSE to 0, we can simply sum it up and have the result we need:\n\n\n# Frequency of node\nnode &lt;- \"love\"\n(R1 &lt;- sum(poem_tokens == \"love\"))\n\n[1] 7"
+  },
+  {
+    "objectID": "index.html#determine-tallied-values-24",
+    "href": "index.html#determine-tallied-values-24",
+    "title": "Collocation Analysis using R",
+    "section": "Determine Tallied Values (2/4)",
+    "text": "Determine Tallied Values (2/4)\n\nLikewise for the collocate of interest, \\(C_1\\):\n\n\n# Frequency of collocate of interest\ncollocate &lt;- \"my\"\n(C1 &lt;- sum(poem_tokens == \"my\"))\n\n[1] 8\n\n\n\nThe window size is our choice and depends on the research question.\n\n\n# Window size\n(window_size &lt;- 2)\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#determine-tallied-values-34",
+    "href": "index.html#determine-tallied-values-34",
+    "title": "Collocation Analysis using R",
+    "section": "Determine Tallied Values (3/4)",
+    "text": "Determine Tallied Values (3/4)\n\nFor determining the collocation, we need to count - or better make the computer count - not just a sum, but what positional values the node and its collocate has. Usually we want to identify all collocates of our node of interest and how often they occur in our text (corpus).\nFirst, we need to find the positions of our node. We can do so with the function which(). It returns a numeric vector of the node positions in the token vector\n\n\n# Node positions\n(node_positions &lt;- which(poem_tokens==\"love\"))\n\n[1]   2  16  37  43  72  90 103\n\n\n\nSince we decided for a \\(L_1\\)/\\(R_1\\) window, we can take the above vector add and subtract 1, respectively, to determine the positions of the co-occurrences:\n\n\n# get the position numbers of L1 and R1\nleft_positions &lt;- node_positions - 1\nright_positions &lt;- node_positions + 1\n# combine the two vectors\nall_positions &lt;- c(left_positions, right_positions)\n\n# sort it nicely for us\nsort(all_positions)\n\n [1]   1   3  15  17  36  38  42  44  71  73  89  91 102 104"
+  },
+  {
+    "objectID": "index.html#determine-tallied-values-44",
+    "href": "index.html#determine-tallied-values-44",
+    "title": "Collocation Analysis using R",
+    "section": "Determine Tallied Values (4/4)",
+    "text": "Determine Tallied Values (4/4)\n\nHaving the numerical values of the collocate positions in the text vector, we can use this as a filter to retrieve the tokens of interest:\n\n\n(all_collocates &lt;- poem_tokens[all_positions])\n\n [1] \"my\"   \"my\"   \"in\"   \"will\" \"will\" \"only\" \"my\"   \"is\"   \"is\"   \"am\"  \n[11] \"thee\" \"thee\" \"and\"  \"thou\"\n\n\n\nTo summarize this, we apply the table() function:\n\n\ntable(all_collocates)\n\nall_collocates\n  am  and   in   is   my only thee thou will \n   1    1    1    2    3    1    2    1    2 \n\n\n\nTo extract only the numerical value of our collocate of interest, we subset this table using double brackets ([[]]):\n\n\n(O_11 &lt;- table(all_collocates)[[\"my\"]])\n\n[1] 3"
+  },
+  {
+    "objectID": "index.html#all-measures-table",
+    "href": "index.html#all-measures-table",
+    "title": "Collocation Analysis using R",
+    "section": "All Measures table",
+    "text": "All Measures table\n\nNumerical ValuesCollocation Ranking"
+  },
+  {
+    "objectID": "index.html#edge-cases",
+    "href": "index.html#edge-cases",
+    "title": "Collocation Analysis using R",
+    "section": "Edge Cases",
+    "text": "Edge Cases\n\nThere are some instances which require special treatment\n\n\n\n\n\nMeasure Limitations\n1-to-1 relationship of node and collocate:\n\n\n\n\nCollocate present\nCollocate absent\nTotals\n\n\n\n\nNode present\n1\n\\(O_{12}\\)\n\\(R_1\\)\n\n\nNode absent\n0\n\\(O_{22}\\)\n\\(R_2\\)\n\n\nTotals\n1\n\\(C_2\\)\n\\(N\\)\n\n\n\n\n\nDivision by zero\n\\[LogRatio = \\log_{2} \\frac{O_{11} \\times R_1}{O_{21} \\times R_2} = \\log_{2} \\frac{1 \\times R_1}{0 \\times R_2}\\]\nLog of zero\nPart of LL formula - Log of zero is undefined\n\\[O_{21} \\times \\ln(\\frac{O_{21}}{E_{21}}) = 0 \\times \\ln(\\frac{0}{E_{21}}) \\]\n\n\n\nSelf-collocation\nA sentence with an epizeuxis like:\n\n“There are three things that matter in property: location, location, location.”\n\n\n— Attributed to Lord Harold Samuel (1944)\n\n\n\nProduces a self-collocation table as below:\n\n\n\n\nCollocate present\nCollocate absent\nTotals\n\n\n\n\nNode present\n4\n1\n5\n\n\nNode absent\n-1\n\\(O_{22}\\)\n\\(R_2\\)\n\n\nTotals\n3\n\\(C_2\\)\n\\(N\\)\n\n\n\n\n\n\nOverlapping windows\nA sentence with an epistrophe like:\n\nWe want to build growth, significant growth, sustainable growth, rooted in our core capabilities.\n\nreturns the following \\(L_1\\)/\\(R_1\\) constructs:\n\nbuild growth significant\nsignificant growth sustainable\nsustainable growth rooted\n\nWhich results in the following values for the collocate sustainable:\n\n\n\n\nCollocate present\nCollocate absent\nTotals\n\n\n\n\nNode present\n2\n\\(O_{12}\\)\n3\n\n\nNode absent\n-1\n\\(O_{22}\\)\n\\(R_2\\)\n\n\nTotals\n1\n\\(C_2\\)\n\\(N\\)"
+  },
+  {
+    "objectID": "index.html#summary-the-algorithmic-approach",
+    "href": "index.html#summary-the-algorithmic-approach",
+    "title": "Collocation Analysis using R",
+    "section": "Summary: the Algorithmic Approach",
+    "text": "Summary: the Algorithmic Approach\nBla Bla Bla"
+  },
+  {
+    "objectID": "index.html#thank-you",
+    "href": "index.html#thank-you",
+    "title": "Collocation Analysis using R",
+    "section": "Thank you",
+    "text": "Thank you\n\n\nPlease feel free to reach out to me if you have any questions.\nAlso, I appreciate any comments and suggestions regarding this material or Corpus Linguistics in general.\n\n\n\n\nOlaf Presanis\n\n\nopresanis@gmail.com\n\n\nSend Email\n\n\nopresanis@gmail.com"
+  },
+  {
+    "objectID": "index.html#further-reading",
+    "href": "index.html#further-reading",
+    "title": "Collocation Analysis using R",
+    "section": "Further reading",
+    "text": "Further reading\n\nStarting point of your learning journey in statistics and R for Corpus linguistics should be Brezina (2018). This book will give you a solid overview about statistical concepts used in the field. Especially on Collocations, see also Brezina et al. (2015).\nAlso, the work of Stefan Gries in recommended, in particular Gries (2016), which is a good hands-on introduction into R and its application to case studies. With a broader focus on linear and mixed models, Gries (2021). Both give a solid and ridgid introduction into working with R in (Corpus) Linguistics.\nThe Practical Handbook of Corpus Linguistics Paquot & Gries (2020) offers an overview on many aspects in Corpus Linguistics research, from corpus compilation to writing a research report. Part II focuses on Corpus methods (with Chapter 7 on Co-occurrence Data, like Collocations Gries & Durrant (2020)) and Part IV on technical aspects, like programming with R.\nThere are many other introductions to be considered, for example Bodo Winter Winter (2019). He gives an introduction based on the tydiverse dialect of R (other than Gries, who sticks to base R) before diving into linear models and inferrential statistics. Slightly earlier work of Guillaume Desagulier Desagulier (2017) but likewise a good introduction to the topic."
+  },
+  {
+    "objectID": "index.html#measures-discussed-in-this-presentation",
+    "href": "index.html#measures-discussed-in-this-presentation",
+    "title": "Collocation Analysis using R",
+    "section": "Measures Discussed in this Presentation",
+    "text": "Measures Discussed in this Presentation\n\n\nEvert’s MU (Evert (2004))\n\\(MU = \\frac{O_{11}}{E_{11}}\\)\n\n\n(pointwise) Mutual Information\n\\(MI = \\log_{2}{\\frac{O_{11}}{E_{11}}}\\)\n\nMI2\n\\(MI = \\log_{2}{\\frac{O_{11}^2}{E_{11}}}\\)\n\n\nMI3\n\\(MI = \\log_{2}{\\frac{O_{11}^3}{E_{11}}}\\)\n\nDice\n\\(Dice = \\frac{2 \\times O_{11}}{R_1 + C_1}\\)\n\n\nLogDice (Rychlỳ (2008))\n\\(LogDice = 14 + \\log_{2} \\frac{2 \\times O_{11}}{R_1 + C_1}\\)\n\n\nLogRatio (Hardie (2014))\n\\(LogRatio = \\log_{2} \\frac{O_{11} \\times R_1}{O_{21} \\times R_2}\\)"
+  },
+  {
+    "objectID": "index.html#sec-token-cleaning",
+    "href": "index.html#sec-token-cleaning",
+    "title": "Collocation Analysis using R",
+    "section": "Additional Cleaning of Tokenized Text",
+    "text": "Additional Cleaning of Tokenized Text\n# Step 1: Concatenate the vector into a single string\npoem_string &lt;- paste(poem_tokenized, collapse = \" \")\n\n# Step 2: Replace the token \"'s\" with \"is\"\npoem_string &lt;- gsub(\"'s\\\\b\", \" is \", poem_string)\n\n# Step 3: Remove all punctuation\npoem_string &lt;- gsub(\"[[:punct:]]\", \"\", poem_string)\n\n# Step 4: make all words lowercase\npoem_string &lt;- tolower(poem_string)\n\n# Step 5: Split the cleaned string back into a vector of words\n# on any white space character as delimiter\npoem_tokens &lt;- strsplit(poem_string, \"\\\\s+\")[[1]]"
+  }
+]
