@@ -81,3 +81,18 @@
   padding: 2px 4px;
   border-radius: 4px;
 }
+
+/* plotly adjustments */
+
+.reveal section.fullplot {
+  padding: 0.5em;
+}
+
+.reveal section.fullplot .columns {
+  align-items: center;
+}
+
+.reveal section.fullplot .html-widget {
+  width: 100%;
+  height: 80vh;
+}

@@ -30,22 +30,38 @@ csl: apa.csl
 
 ::: {.smaller}
 
-- not necessarily expected that one then programs their own code to calculate association measures
-- more to understand the algorithmic approach when implementing AMs 
-- and to reflect on the various variables and decision points from raw text to measure
-- hope this also helps to understand why some apparently identical procedures may yield different outcomes
+- It is not expected that every researchrer writes their own code to calculate association measures
+- But it is important to understand the algorithmic approach when implementing AMs 
+- This can help to reflect on the various variables and decision points from raw text to measure
+- This gives also some insights in understanding why some apparently identical procedures may yield different outcomes
 
 **Assumptions**
 
 - Familiar with Chapter 3 of @Brezina2018
 - Some experience with any Corpus Lingustics tool (e.g. #LancsBox, AntConc, SketchEngine, WordSmith, ...)
-- Little exposure to programming
+- Ideally a little exposure to programming
 
 :::
 
-## General Remarks
+## Why R? - General Remarks
 
-Reproducibility: @Soenning2021, @Schweinberger2026, 
+\
+
+::: {.smaller}
+
+Like in many sciences, tansparency, reproducibility and replication remains a challenge in Corpus Linguistics [@Schweinberger2026]. 
+
+Some researchers identify the field as being part of the "replication crisis" (e.g. @Soenning2021, @Schweinberger2025b).
+
+\
+
+R, as an open source language with a broad ecosystem, can facilitate transparent research for reproducible results.
+
+\
+
+This presentation has been created using `R`, with `Positron` as IDE ("Integrated development environment", [https://positron.posit.co/](https://positron.posit.co/)) and the publishing system `quarto` ([https://quarto.org/](https://quarto.org/)), which allows to have executable code in reports or presentations.
+
+:::
 
 # Recap from last Meeting
 
@@ -147,6 +163,146 @@ This is small text
 :::
 
 :::
+
+## BNC 1994 Data
+
+::: {style="display: grid; grid-template-columns: 20% 80%; gap: 20px; align-items: start;"}
+
+::: {style="font-size: 0.6em; text-align: center;"}
+**This is small text**
+
+*   Point one
+*   Point two
+*   Point three
+:::
+
+::: {}
+
+<img src="figures/measures_scatterplot_bnc1994_nouns.png" style="max-width: 100%; height: auto;">
+
+:::
+:::
+
+
+## BNC 1994 Data - log scale
+
+::: {style="display: grid; grid-template-columns: 20% 80%; gap: 20px; align-items: start;"}
+
+::: {style="font-size: 0.6em; text-align: center;"}
+**This is small text**
+
+*   Point one
+*   Point two
+*   Point three
+:::
+
+::: {}
+
+<img src="figures/measures_scatterplot_bnc1994_nouns_log.png" style="max-width: 100%; height: auto;">
+
+:::
+:::
+
+
+
+## BNC 1994 Data - Boxplot
+
+::: {style="display: grid; grid-template-columns: 20% 80%; gap: 20px; align-items: start;"}
+
+::: {style="font-size: 0.6em; text-align: center;"}
+**This is small text**
+
+*   Point one
+*   Point two
+*   Point three
+:::
+
+::: {}
+
+<img src="figures/measures_boxplot_bnc1994_nouns.png" style="max-width: 100%; height: auto;">
+
+:::
+:::
+
+
+
+## {.fullplot .smaller}
+
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+### Notes
+
+- High-frequency nouns
+- Red = R_1 > 5000
+- Log-scaled dimensions
+
+:::
+
+::: {.column width="70%"}
+
+
+
+```{r}
+#| fig-height: 6.5
+#| out-width: 100%
+
+# load data
+library(readr)
+library(dplyr)
+library(magrittr)
+library(plotly)
+bnc1994_nouns <- read_csv("data/sample_150_nouns_collocate.csv",
+  show_col_types = FALSE)
+
+
+top_function_words <- bnc1994_nouns |>
+  dplyr::distinct(collocate, .keep_all = TRUE) |>
+  dplyr::slice_max(C_1, n = 10) |>
+  dplyr::select(collocate, C_1) |>
+  dplyr::pull(collocate)
+
+# create color vector
+point_colors <- ifelse(bnc1994_nouns$collocate %in% top_function_words,
+                       "orange",
+                       "steelblue")
+
+
+q <- plot_ly(
+  bnc1994_nouns,
+  x = ~R_1,
+  y = ~C_1,
+  z = ~O_11,
+  type = "scatter3d",
+  mode = "markers",
+  marker = list(
+    size = 3,
+    color = point_colors
+  )
+) %>%
+  layout(
+    margin = list(l = 0, r = 0, b = 0, t = 0),
+    # title = "Collocations including top 10 function words",
+    scene = list(
+      aspectmode = "cube",
+      camera = list(
+        # eye = list(x = 1.3, y = 1.3, z = 0.9)
+        eye = list(x = 1.5, y = 1.5, z = 1)
+        ),
+      xaxis = list(title = "node frequency"),
+      yaxis = list(title = "collocate frequency"),
+      zaxis = list(title = "collocation frequency")
+    )
+  )
+
+q
+```
+
+:::
+:::
+
 
 # Sample "Corpus": A Single Text
 
@@ -276,9 +432,19 @@ This clean text vector will be the basis for our following analysis.
 ## Summary Tokenization
 **Points to Consider**
 
-::: {.incremental}
-- Eat spaghetti
-- Drink wine
+The way tokenization is performed has a significant influence on the association measure results, even for segmented languages like English. Main sources of variation include:
+
+::: {.fragment fragment-index=1}
+::: {.nonincremental}
+- Hyphenated words (e.g. `daughter-in-law` vs. `daughter`, `in`, `law`)
+- Multiword expressions (e.g. `Supervisory Board` vs. `Supervisory`, `Board`)
+- Clitics (`That's` vs `That`, `'s`)
+- Abbreviations (e.g. `U.K.` often becomes `U`, `K`)
+:::
+:::
+
+::: {.fragment fragment-index=2}
+=> Difference in token counts varay across tools and methods used [@brezina2017large]. Transparency and consistency is key. 
 :::
 
 # Construct Contingency Tables
@@ -403,7 +569,7 @@ In other words, we do have to determine
 :::
 
 ::: {.fragment fragment-index=2}
-(2) one _parameter_, decided by the researcher
+(2) one _parameter_, decided by the researcher (if window size correction is applied)
 :::
 
 ::: {.fragment fragment-index=3}
@@ -461,7 +627,7 @@ For the frequency of the node ($R_1$), we can ask which token is equal to the no
 
 # Frequency of node
 node <- "love"
-(R1 <- sum(poem_tokens == "love"))
+(R_1 <- sum(poem_tokens == "love"))
 ```
 
 ## Determine Tallied Values (2/4)
@@ -477,7 +643,7 @@ Likewise for the collocate of interest, $C_1$:
 
 # Frequency of collocate of interest
 collocate <- "my"
-(C1 <- sum(poem_tokens == "my"))
+(C_1 <- sum(poem_tokens == "my"))
 ```
 
 :::{.smaller}
@@ -563,19 +729,113 @@ To extract only the numerical value of our collocate of interest, we `subset` th
 ```
 
 
-
-
 # Determine Calculated Values
+
+## Compute Observed and Expected
 
 ::: {.smaller}
 
+Computing the remaining values for constructing the observed and expected table can be easlily done with applying simple arithmetic:
+
+:::
+
+::: {.fragment fragment-index=1}
+```{r}
+#| echo: true
+# remaining observed frequency values
+O_12 <- R_1 - O_11
+O_21 <- C_1 - O_11
+R_2 <- N - R_1
+C_2 <- N - C_1
+O_22 <- R_2 - O_21
+```
+:::
+
+::: {.fragment fragment-index=2}
+::: {.smaller}
+**Note**: expected frequencies can be calculated with correction for window size or without. Here, we do *not* correct for window size. 
+
+:::
+:::
+
+::: {.fragment fragment-index=3}
+
+```{r}
+#| echo: true
+# Calculate expected values without correction
+E_11 <- (R_1 * C_1) / N
+E_21 <- (R_2 * C_2) / N
+E_12 <- (R_1 * C_2) / N
+E_22 <- (R_2 * C_2) / N
+```
 
 
 :::
 
-
-
 # Calculate Association Measures
+
+## MU, MI, Dice, LogRatio
+
+Calculating Association Measures which are based on observed/ecpected frequencies is now straightforward. 
+
+
+:::: {.columns}
+
+::: {.column width="45%"}
+**MU**
+
+```{r}
+#| echo: true
+
+(MU <- O_11 / E_11)
+```
+
+\
+
+**MI**
+
+```{r}
+#| echo: true
+
+(MI <- log2(O_11 / E_11))
+```
+
+:::
+
+::: {.column width="10%"}
+
+:::
+
+::: {.column width="45%"}
+**Dice**
+
+```{r}
+#| echo: true
+
+(Dice <- (2 * O_11) / (R_1 + C_1))
+```
+
+\
+
+**LogRatio**
+
+```{r}
+#| echo: true
+
+(LogRatio <- 
+  log2((O_11 * R_2) / (O_21 * R_1)))
+```
+
+:::
+:::
+
+::: aside
+
+The formulae of these measures are listed in @sec-ai-formulae.
+
+:::
+
+
 
 # Compare Association Measures
 
@@ -759,7 +1019,7 @@ There are some instances which require special treatment
 
 **Division by zero**
 
-$$LogRatio = \log_{2} \frac{O_{11} \times R_1}{O_{21} \times R_2} = \log_{2} \frac{1 \times R_1}{0 \times R_2}$$
+$$LogRatio = \log_{2} \frac{O_{11} \times R_2}{O_{21} \times R_1} = \log_{2} \frac{1 \times R_2}{0 \times R_1}$$
 
 **Log of zero**
 
@@ -868,25 +1128,25 @@ Starting point of your learning journey in statistics and R for Corpus linguisti
 
 Also, the work of Stefan Gries in recommended, in particular @Gries2016, which is a good hands-on introduction into R and its application to case studies. With a broader focus on linear and mixed models, @Gries2021. Both give a solid and ridgid introduction into working with R in (Corpus) Linguistics. 
 
-The _Practical Handbook of Corpus Linguistics_ @Paquot2020 offers an overview on many aspects in Corpus Linguistics research, from corpus compilation to writing a research report. Part II focuses on Corpus methods (with Chapter 7 on _Co-occurrence Data_, like Collocations @Gries2020) and Part IV on technical aspects, like programming with R.
+The _Practical Handbook of Corpus Linguistics_ @Paquot2020 offers an overview on many aspects in Corpus Linguistics research, from corpus compilation to writing a research report. Part II focuses on Corpus methods (with Chapter 7 on _Co-occurrence Data_, like Collocations [@Gries2020]) and Part IV on technical aspects, like programming with R.
 
-There are many other introductions to be considered, for example Bodo Winter @Winter2019. He gives an introduction based on the `tydiverse` dialect of R (other than Gries, who sticks to `base R`) before diving into linear models and inferrential statistics. Slightly earlier work of Guillaume Desagulier @Desagulier2017 but likewise a good introduction to the topic.  
+There are many other introductions to be considered, for example Bodo Winter -@Winter2019. He gives an introduction based on the `tidyverse` dialect of R (other than Gries, who sticks to `base R`) before diving into linear models and inferrential statistics. Slightly earlier work of Guillaume Desagulier -@Desagulier2017 but likewise a good introduction to the topic.  
 
 :::
 
-## Measures Discussed in this Presentation
+## Measures Discussed in this Presentation {#sec-ai-formulae}
 
 
 ::: {.columns style="font-size: 0.6em;"}
 
 ::: {.column width="33%"}
-_**Evert's MU**_ (@evert2004phd)
+_**MU**_ [@evert2004phd]
 
 $MU = \frac{O_{11}}{E_{11}}$
 
 \
 
-_**(pointwise) Mutual Information**_
+_**(pointwise) Mutual Information**_ [@Church1990]
 
 $MI = \log_{2}{\frac{O_{11}}{E_{11}}}$
 
@@ -894,13 +1154,13 @@ $MI = \log_{2}{\frac{O_{11}}{E_{11}}}$
 
 ::: {.column width="33%"}
 
-_**MI~2~**_
+_**MI~2~**_ [@Daille1995]
 
 $MI = \log_{2}{\frac{O_{11}^2}{E_{11}}}$
 
 \
 
-_**MI~3~**_
+_**MI~3~**_ [@Daille1995]
 
 $MI = \log_{2}{\frac{O_{11}^3}{E_{11}}}$
 
@@ -908,27 +1168,57 @@ $MI = \log_{2}{\frac{O_{11}^3}{E_{11}}}$
 
 ::: {.column width="33%"}
 
-_**Dice**_
+_**Dice**_ [@Smadja1993]
 
 $Dice = \frac{2 \times O_{11}}{R_1 + C_1}$
 
 \
 
-_**LogDice**_ (@Rychlỳ2008)
+_**LogDice**_ [@Rychlỳ2008]
 
 $LogDice = 14 + \log_{2} \frac{2 \times O_{11}}{R_1 + C_1}$
 
 \
 
-_**LogRatio**_ (@Hardie2014)
+_**LogRatio**_ [@Hardie2014]
 
-$LogRatio = \log_{2} \frac{O_{11} \times R_1}{O_{21} \times R_2}$
+$LogRatio = \log_{2} \frac{O_{11} \times R_2}{O_{21} \times R_1}$
+
+:::
+
+:::
+
+
+## Measures Discussed in this Presentation (2/2)
+
+
+::: {.columns style="font-size: 0.6em;"}
+
+::: {.column width="66%"}
+_**Log-Likelihood**_ [@Rayson2004]
+
+$LogLikelihood =  2 \times \left( \begin{aligned} 
+  &O_{11} \times \log(O_{11} / E_{11}) + O_{21} \times \log(O_{21} / E_{21}) \\ 
+  + &O_{12} \times \log(O_{12} / E_{12}) + O_{22} \times \log(O_{22} / E_{22}) 
+\end{aligned} \right)$
+
+
+:::
+
+::: {.column width="33%"}
+_**T-score**_ [@Stubbs1995]
+
+$t-score = \frac{(O_{11} - E_{11})}{\sqrt{O_{11}}}$
+
+_**Z-score**_
+
+$z-score = \frac{(O_{11} - E_{11})}{\sqrt{E_{11}}}$
+
+
 
 :::
 
 :::
-
-
 
 
 ## Additional Cleaning of Tokenized Text {#sec-token-cleaning}
