@@ -35,46 +35,39 @@
     "text": "Measurement Distribution\nNormalized between 0 and 1 for all measures."
   },
   {
-    "objectID": "index.html#boxplot",
-    "href": "index.html#boxplot",
+    "objectID": "index.html#interpretation-of-am-distributions",
+    "href": "index.html#interpretation-of-am-distributions",
     "title": "Collocation Analysis using R",
-    "section": "Boxplot",
-    "text": "Boxplot\n\n\nThis is small text\n\nThis is small text\nThis is small text\nThis is small text"
-  },
-  {
-    "objectID": "index.html#boxplot---grid-version",
-    "href": "index.html#boxplot---grid-version",
-    "title": "Collocation Analysis using R",
-    "section": "Boxplot - Grid version",
-    "text": "Boxplot - Grid version\n\n\nThis is small text\n\nPoint one\nPoint two\nPoint three"
+    "section": "Interpretation of AM Distributions",
+    "text": "Interpretation of AM Distributions\n\n\nEach association measure transforms the normally distributed co-occurrence sampling in a distinct way:\n\nexcept of Log Likelihood all measures compress the interquartile range, emphasizing the tails of the distributions (visible as outliers)\nMU and MI appear like each other’s invert (but they are not)\nThe increasing exponents of the numerators in MI, MI2 and MI3 pushes the IQR to the top\nLog Dice and _MI3_produce a very similar distribution\nLog Ratio keeps the median centered, with almost symmetrical appearance of both ends\nz-score and Log Dice both have one prominent outlier"
   },
   {
     "objectID": "index.html#bnc-1994-data",
     "href": "index.html#bnc-1994-data",
     "title": "Collocation Analysis using R",
     "section": "BNC 1994 Data",
-    "text": "BNC 1994 Data\n\n\nThis is small text\n\nPoint one\nPoint two\nPoint three"
+    "text": "BNC 1994 Data\n\n\nEmpirical data\nA random sample of 150 common nouns from the BNC 1994, stratified by 10 frequency bands. \\(\\approx 250,000\\) node-collocate pairs.\n\n\nSince we draw from a Zipf-like distribution, the observed frequency effect is less pronounced, but still visible for some measures (notably t-score and MI3)."
   },
   {
     "objectID": "index.html#bnc-1994-data---log-scale",
     "href": "index.html#bnc-1994-data---log-scale",
     "title": "Collocation Analysis using R",
     "section": "BNC 1994 Data - log scale",
-    "text": "BNC 1994 Data - log scale\n\n\nThis is small text\n\nPoint one\nPoint two\nPoint three"
+    "text": "BNC 1994 Data - log scale\n\n\nEmpirical data\nUsing a log-scale for the x-axis gives further insights:\n\nMI3 almost ‘guarantees’ a high score for high cooccurence frequency\nmany measures show a lower bound with increasing frequency\nothers, notably MI and Log Ratio converge"
   },
   {
     "objectID": "index.html#bnc-1994-data---boxplot",
     "href": "index.html#bnc-1994-data---boxplot",
     "title": "Collocation Analysis using R",
     "section": "BNC 1994 Data - Boxplot",
-    "text": "BNC 1994 Data - Boxplot\n\n\nThis is small text\n\nPoint one\nPoint two\nPoint three"
+    "text": "BNC 1994 Data - Boxplot\n\n\nEmpirical data\n\nWe see a clear distinction between measures on a standard vs a log scale (with the exception of Log Likelihood)\nstandard scale: t-score ‘centralizes’ the distribution, whereas MU shows a similar appearance than the observed frequency\nAgain, z-score and Dice look very similar.\nlog-scaled measures have their interquartile range below the 0.5 mark, resulting in many outliers in the upper scale\nLog Dice is the only measure which produces a significant number of outliers on both ends"
   },
   {
     "objectID": "index.html#section",
     "href": "index.html#section",
     "title": "Collocation Analysis using R",
     "section": "",
-    "text": "Notes\n\nHigh-frequency nouns\nRed = R_1 &gt; 5000\nLog-scaled dimensions"
+    "text": "3D Scatterplot\n\nNode, collocate and collocation frequency\nAxis are log-scaled\nOrange: top 10 function words in the corpus (‘the’, ‘of’, ‘and’,…)\n\nhigh collocation frequency is dominated by function words\nthe ‘voids’ in the node/collocate scatters are due to the sampling process"
   },
   {
     "objectID": "index.html#a-red-red-rose",
@@ -109,7 +102,7 @@
     "href": "index.html#result-produced-by-the-tokenizer",
     "title": "Collocation Analysis using R",
     "section": "Result produced by the Tokenizer",
-    "text": "Result produced by the Tokenizer\n\n  [1] \"My\"       \"love\"     \"is\"       \"like\"     \"a\"        \"red\"      \",\"        \"red\"      \"rose\"     \"that\"    \n [11] \"'s\"       \"newly\"    \"sprung\"   \"in\"       \"June\"     \":\"        \"My\"       \"love\"     \"is\"       \"like\"    \n [21] \"the\"      \"melody\"   \"that\"     \"'s\"       \"sweetly\"  \"played\"   \"in\"       \"tune.\"    \"As\"       \"fair\"    \n [31] \"art\"      \"thou\"     \",\"        \"my\"       \"bonnie\"   \"lass\"     \",\"        \"so\"       \"deep\"     \"in\"      \n [41] \"love\"     \"am\"       \"I\"        \":\"        \"And\"      \"I\"        \"will\"     \"love\"     \"thee\"     \"still\"   \n [51] \",\"        \"my\"       \"dear\"     \",\"        \"till\"     \"a\"        \"'\"        \"the\"      \"seas\"     \"gang\"    \n [61] \"dry.\"     \"Till\"     \"a\"        \"'\"        \"the\"      \"seas\"     \"gang\"     \"dry\"      \",\"        \"my\"      \n [71] \"dear\"     \",\"        \"and\"      \"the\"      \"rocks\"    \"melt\"     \"wi\"       \"'\"        \"the\"      \"sun\"     \n [81] \":\"        \"And\"      \"I\"        \"will\"     \"love\"     \"thee\"     \"still\"    \",\"        \"my\"       \"dear\"    \n [91] \",\"        \"while\"    \"the\"      \"sands\"    \"o\"        \"'\"        \"life\"     \"shall\"    \"run.\"     \"And\"     \n[101] \"fare\"     \"thee\"     \"weel\"     \",\"        \"my\"       \"only\"     \"love\"     \",\"        \"and\"      \"fare\"    \n[111] \"thee\"     \"weel\"     \"a\"        \"while\"    \"!\"        \"And\"      \"I\"        \"will\"     \"come\"     \"again\"   \n[121] \",\"        \"my\"       \"love\"     \",\"        \"thou\"     \"'\"        \"it\"       \"were\"     \"ten\"      \"thousand\"\n[131] \"mile\"     \".\"      \n\n\nAs a next step, some further cleanup is necessary. The code used to do this can be found in the appendix Section 9.4.\n\n\nSome additional commentary of more peripheral interest."
+    "text": "Result produced by the Tokenizer\n\n  [1] \"My\"       \"love\"     \"is\"       \"like\"     \"a\"        \"red\"      \",\"        \"red\"      \"rose\"     \"that\"    \n [11] \"'s\"       \"newly\"    \"sprung\"   \"in\"       \"June\"     \":\"        \"My\"       \"love\"     \"is\"       \"like\"    \n [21] \"the\"      \"melody\"   \"that\"     \"'s\"       \"sweetly\"  \"played\"   \"in\"       \"tune.\"    \"As\"       \"fair\"    \n [31] \"art\"      \"thou\"     \",\"        \"my\"       \"bonnie\"   \"lass\"     \",\"        \"so\"       \"deep\"     \"in\"      \n [41] \"love\"     \"am\"       \"I\"        \":\"        \"And\"      \"I\"        \"will\"     \"love\"     \"thee\"     \"still\"   \n [51] \",\"        \"my\"       \"dear\"     \",\"        \"till\"     \"a\"        \"'\"        \"the\"      \"seas\"     \"gang\"    \n [61] \"dry.\"     \"Till\"     \"a\"        \"'\"        \"the\"      \"seas\"     \"gang\"     \"dry\"      \",\"        \"my\"      \n [71] \"dear\"     \",\"        \"and\"      \"the\"      \"rocks\"    \"melt\"     \"wi\"       \"'\"        \"the\"      \"sun\"     \n [81] \":\"        \"And\"      \"I\"        \"will\"     \"love\"     \"thee\"     \"still\"    \",\"        \"my\"       \"dear\"    \n [91] \",\"        \"while\"    \"the\"      \"sands\"    \"o\"        \"'\"        \"life\"     \"shall\"    \"run.\"     \"And\"     \n[101] \"fare\"     \"thee\"     \"weel\"     \",\"        \"my\"       \"only\"     \"love\"     \",\"        \"and\"      \"fare\"    \n[111] \"thee\"     \"weel\"     \"a\"        \"while\"    \"!\"        \"And\"      \"I\"        \"will\"     \"come\"     \"again\"   \n[121] \",\"        \"my\"       \"love\"     \",\"        \"thou\"     \"'\"        \"it\"       \"were\"     \"ten\"      \"thousand\"\n[131] \"mile\"     \".\"      \n\n\nAs a next step, some further cleanup is necessary. The code used to do this can be found in the appendix Section 9.4."
   },
   {
     "objectID": "index.html#final-result-clean-tokenized-text",
@@ -196,25 +189,18 @@
     "text": "Edge Cases\n\nThere are some instances which require special treatment\n\n\n\n\n\nMeasure Limitations\n1-to-1 relationship of node and collocate:\n\n\n\n\nCollocate present\nCollocate absent\nTotals\n\n\n\n\nNode present\n1\n\\(O_{12}\\)\n\\(R_1\\)\n\n\nNode absent\n0\n\\(O_{22}\\)\n\\(R_2\\)\n\n\nTotals\n1\n\\(C_2\\)\n\\(N\\)\n\n\n\n\n\nDivision by zero\n\\[LogRatio = \\log_{2} \\frac{O_{11} \\times R_2}{O_{21} \\times R_1} = \\log_{2} \\frac{1 \\times R_2}{0 \\times R_1}\\]\nLog of zero\nPart of LL formula - Log of zero is undefined\n\\[O_{21} \\times \\ln(\\frac{O_{21}}{E_{21}}) = 0 \\times \\ln(\\frac{0}{E_{21}}) \\]\n\n\n\nSelf-collocation\nA sentence with an epizeuxis like:\n\n“There are three things that matter in property: location, location, location.”\n\n\n— Attributed to Lord Harold Samuel (1944)\n\n\n\nProduces a self-collocation table as below:\n\n\n\n\nCollocate present\nCollocate absent\nTotals\n\n\n\n\nNode present\n4\n1\n5\n\n\nNode absent\n-1\n\\(O_{22}\\)\n\\(R_2\\)\n\n\nTotals\n3\n\\(C_2\\)\n\\(N\\)\n\n\n\n\n\n\nOverlapping windows\nA sentence with an epistrophe like:\n\nWe want to build growth, significant growth, sustainable growth, rooted in our core capabilities.\n\nreturns the following \\(L_1\\)/\\(R_1\\) constructs:\n\nbuild growth significant\nsignificant growth sustainable\nsustainable growth rooted\n\nWhich results in the following values for the collocate sustainable:\n\n\n\n\nCollocate present\nCollocate absent\nTotals\n\n\n\n\nNode present\n2\n\\(O_{12}\\)\n3\n\n\nNode absent\n-1\n\\(O_{22}\\)\n\\(R_2\\)\n\n\nTotals\n1\n\\(C_2\\)\n\\(N\\)"
   },
   {
-    "objectID": "index.html#summary-the-algorithmic-approach",
-    "href": "index.html#summary-the-algorithmic-approach",
-    "title": "Collocation Analysis using R",
-    "section": "Summary: the Algorithmic Approach",
-    "text": "Summary: the Algorithmic Approach\nBla Bla Bla"
-  },
-  {
     "objectID": "index.html#thank-you",
     "href": "index.html#thank-you",
     "title": "Collocation Analysis using R",
     "section": "Thank you",
-    "text": "Thank you\n\n\nPlease feel free to reach out to me if you have any questions.\nAlso, I appreciate any comments and suggestions regarding this material or Corpus Linguistics in general.\n\n\n\n\nOlaf Presanis\n\n\nopresanis@gmail.com\n\n\nSend Email\n\n\nopresanis@gmail.com"
+    "text": "Thank you\n\n\nPlease feel free to reach out to me if you have any questions.\nAlso, I appreciate any comments and suggestions regarding this material or Corpus Linguistics in general.\n\n\n\n\nOlaf Presanis\n\n\nopresanis@gmail.com"
   },
   {
-    "objectID": "index.html#further-reading",
-    "href": "index.html#further-reading",
+    "objectID": "index.html#my-reading-recommendations",
+    "href": "index.html#my-reading-recommendations",
     "title": "Collocation Analysis using R",
-    "section": "Further reading",
-    "text": "Further reading\n\nStarting point of your learning journey in statistics and R for Corpus linguistics should be Brezina (2018). This book will give you a solid overview about statistical concepts used in the field. Especially on Collocations, see also Brezina et al. (2015).\nAlso, the work of Stefan Gries in recommended, in particular Gries (2016), which is a good hands-on introduction into R and its application to case studies. With a broader focus on linear and mixed models, Gries (2021). Both give a solid and ridgid introduction into working with R in (Corpus) Linguistics.\nThe Practical Handbook of Corpus Linguistics Paquot & Gries (2020) offers an overview on many aspects in Corpus Linguistics research, from corpus compilation to writing a research report. Part II focuses on Corpus methods (with Chapter 7 on Co-occurrence Data, like Collocations (Gries & Durrant, 2020)) and Part IV on technical aspects, like programming with R.\nThere are many other introductions to be considered, for example Bodo Winter (2019). He gives an introduction based on the tidyverse dialect of R (other than Gries, who sticks to base R) before diving into linear models and inferrential statistics. Slightly earlier work of Guillaume Desagulier (2017) but likewise a good introduction to the topic."
+    "section": "My reading recommendations",
+    "text": "My reading recommendations\n\nA good starting point to dive deeper into statistics and R for Corpus linguistics is Brezina (2018). This book gives a solid overview about statistical concepts used in the field. Especially on Collocations, see also Brezina et al. (2015).\nAlso, the work of Stefan Gries in recommended, in particular Gries (2016), which is a good hands-on introduction into R and its application to case studies. A broader focus on linear and mixed models has Gries (2021). Both give a solid and ridgid introduction into working with R in (Corpus) Linguistics.\nThe Practical Handbook of Corpus Linguistics (Paquot & Gries, 2020) offers an overview on many aspects in Corpus Linguistics research, from corpus compilation to writing a research report. Part II focuses on Corpus methods (with Chapter 7 on Co-occurrence Data, mainly Collocations (Gries & Durrant, 2020)) and Part IV on technical aspects, like programming with R.\nThere are many other introductions to be considered, for example Bodo Winter (2019). He gives an introduction based on the tidyverse dialect of R (other than Gries, who sticks to base R) before diving into linear models and inferrential statistics. Slightly earlier work of Guillaume Desagulier (2017) but likewise a good introduction to the topic. Please see Kortmann (2021) for further readings."
   },
   {
     "objectID": "index.html#sec-ai-formulae",

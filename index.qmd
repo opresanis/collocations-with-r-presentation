@@ -118,7 +118,7 @@ Normalized between 0 and 1 for all measures.
 
 ![](figures/measures_boxplot.png)
 
-## Boxplot
+## Interpretation of AM Distributions
 
 
 ::: {.columns}
@@ -127,11 +127,14 @@ Normalized between 0 and 1 for all measures.
 
 
 
-This is small text
+Each association measure transforms the normally distributed co-occurrence sampling in a distinct way:
 
-- This is small text
-- This is small text
-- This is small text
+- except of _Log Likelihood_ all measures compress the interquartile range, emphasizing the tails of the distributions (visible as outliers) 
+- _MU_ and _MI_ appear like each other's invert (but they are not)
+- The increasing exponents of the numerators in _MI_, _MI~2~_ and _MI~3~_ pushes the IQR to the top
+- _Log Dice_ and _MI~3~_produce a very similar distribution
+- _Log Ratio_ keeps the median centered, with almost symmetrical appearance of both ends
+- _z-score_ and _Log Dice_ both have one prominent outlier
 
 
 
@@ -146,14 +149,14 @@ This is small text
 
 :::
 
-## Boxplot - Grid version
+## Interpretation of Value Distributions {visibility="hidden"}
 
 ::: {style="display: grid; grid-template-columns: 20% 80%; gap: 20px; align-items: start;"}
 
 ::: {style="font-size: 0.6em; text-align: center;"}
 **This is small text**
 
-*   Point one
+*   Frequency is normally distributed
 *   Point two
 *   Point three
 :::
@@ -168,12 +171,15 @@ This is small text
 
 ::: {style="display: grid; grid-template-columns: 20% 80%; gap: 20px; align-items: start;"}
 
-::: {style="font-size: 0.6em; text-align: center;"}
-**This is small text**
+::: {style="font-size: 0.6em; text-align: left;"}
+**Empirical data**
 
-*   Point one
-*   Point two
-*   Point three
+A random sample of 150 common nouns from the BNC 1994, stratified by 10 frequency bands. $\approx 250,000$ node-collocate pairs.  
+
+\
+
+Since we draw from a Zipf-like distribution, the observed frequency effect is less pronounced, but still visible for some measures (notably _t-score_ and _MI~3~_).
+
 :::
 
 ::: {}
@@ -188,12 +194,14 @@ This is small text
 
 ::: {style="display: grid; grid-template-columns: 20% 80%; gap: 20px; align-items: start;"}
 
-::: {style="font-size: 0.6em; text-align: center;"}
-**This is small text**
+::: {style="font-size: 0.6em; text-align: left;"}
+**Empirical data**
 
-*   Point one
-*   Point two
-*   Point three
+Using a log-scale for the x-axis gives further insights:
+
+- _MI~3~_ almost 'guarantees' a high score for high cooccurence frequency
+- many measures show a _lower bound_ with increasing frequency
+- others, notably _MI_ and _Log Ratio_ converge
 :::
 
 ::: {}
@@ -209,12 +217,14 @@ This is small text
 
 ::: {style="display: grid; grid-template-columns: 20% 80%; gap: 20px; align-items: start;"}
 
-::: {style="font-size: 0.6em; text-align: center;"}
-**This is small text**
+::: {style="font-size: 0.5em; text-align: left;"}
+**Empirical data**
 
-*   Point one
-*   Point two
-*   Point three
+*   We see a clear distinction between measures on a standard vs a log scale (with the exception of Log Likelihood)
+*   standard scale: _t-score_ 'centralizes' the distribution, whereas _MU_ shows a similar appearance than the observed frequency
+* Again, _z-score_ and _Dice_ look very similar.
+* log-scaled measures have their interquartile range below the 0.5 mark, resulting in many outliers in the upper scale
+*   _Log Dice_ is the only measure which produces a significant number of outliers on both ends 
 :::
 
 ::: {}
@@ -233,11 +243,14 @@ This is small text
 
 ::: {.column width="30%"}
 
-### Notes
+### 3D Scatterplot
 
-- High-frequency nouns
-- Red = R_1 > 5000
-- Log-scaled dimensions
+- Node, collocate and collocation frequency
+- Axis are log-scaled
+- Orange: top 10 function words in the corpus ('the', 'of', 'and',...)
+\
+- high collocation frequency is dominated by function words 
+- the 'voids' in the node/collocate scatters are due to the sampling process
 
 :::
 
@@ -403,9 +416,7 @@ library(tokenizers)
 \
 As a next step, some further cleanup is necessary. The code used to do this can be found in the appendix @sec-token-cleaning.
 
-::: aside
-Some additional commentary of more peripheral interest.
-:::
+
 
 ## Final Result: Clean Tokenized Text
 
@@ -1094,9 +1105,9 @@ Which results in the following values for the collocate _sustainable_:
 
 
 
-## Summary: the Algorithmic Approach
+## Summary: the Algorithmic Approach {visibility="hidden"}
 
-Bla Bla Bla
+- some notes on the approach
 
 
 ## Thank you
@@ -1112,25 +1123,21 @@ Also, I appreciate any comments and suggestions regarding this material or Corpu
 
 <center>Olaf Presanis</center>  
 
-<center>opresanis@gmail.com</center>
-
-<center><a href="mailto:someone@example.com">Send Email</a></center>
-
 <center><a href="mailto:opresanis@gmail.com">opresanis@gmail.com</a></center>
 
 # Appendix
 
-## Further reading
+## My reading recommendations
 
 :::{.smaller}
 
-Starting point of your learning journey in statistics and R for Corpus linguistics should be @Brezina2018. This book will give you a solid overview about statistical concepts used in the field. Especially on Collocations, see also @Brezina2015.
+A good starting point to dive deeper into statistics and R for Corpus linguistics is @Brezina2018. This book gives a solid overview about statistical concepts used in the field. Especially on Collocations, see also @Brezina2015.
 
-Also, the work of Stefan Gries in recommended, in particular @Gries2016, which is a good hands-on introduction into R and its application to case studies. With a broader focus on linear and mixed models, @Gries2021. Both give a solid and ridgid introduction into working with R in (Corpus) Linguistics. 
+Also, the work of Stefan Gries in recommended, in particular @Gries2016, which is a good hands-on introduction into R and its application to case studies. A broader focus on linear and mixed models has @Gries2021. Both give a solid and ridgid introduction into working with R in (Corpus) Linguistics. 
 
-The _Practical Handbook of Corpus Linguistics_ @Paquot2020 offers an overview on many aspects in Corpus Linguistics research, from corpus compilation to writing a research report. Part II focuses on Corpus methods (with Chapter 7 on _Co-occurrence Data_, like Collocations [@Gries2020]) and Part IV on technical aspects, like programming with R.
+The _Practical Handbook of Corpus Linguistics_ [@Paquot2020] offers an overview on many aspects in Corpus Linguistics research, from corpus compilation to writing a research report. Part II focuses on Corpus methods (with Chapter 7 on _Co-occurrence Data_, mainly Collocations [@Gries2020]) and Part IV on technical aspects, like programming with R.
 
-There are many other introductions to be considered, for example Bodo Winter -@Winter2019. He gives an introduction based on the `tidyverse` dialect of R (other than Gries, who sticks to `base R`) before diving into linear models and inferrential statistics. Slightly earlier work of Guillaume Desagulier -@Desagulier2017 but likewise a good introduction to the topic.  
+There are many other introductions to be considered, for example Bodo Winter -@Winter2019. He gives an introduction based on the `tidyverse` dialect of R (other than Gries, who sticks to `base R`) before diving into linear models and inferrential statistics. Slightly earlier work of Guillaume Desagulier -@Desagulier2017 but likewise a good introduction to the topic. Please see @Kortmann2021 for further readings.
 
 :::
 
