@@ -65,6 +65,39 @@ This presentation has been created using `R`, with `Positron` as IDE ("Integrate
 
 # Recap from last Meeting
 
+## Simulation of t-score
+
+
+::: {.columns}
+
+::: {.column width="85%" style="font-size: 0.6em;"}
+
+![](figures/t_values_simulation.png){width="130%"}
+
+
+:::
+
+::: {.column width="15%" .center style="font-size: 0.6em;"}
+
+In the last meeting on 6 May 2024, synthetic sample of frequency data was constructed to simulate the t-score:
+
+- corpus size 1M tokens
+- a simple random sample of 
+    * 100 collocation values between 1 and 5000
+    * node and collocate frequency between 1 and 5000 but strictly larger than its corresponding collocation value
+
+
+The plot shows the correlation between the collocation frequency and the t-score. We observe a curvilinear relationship.
+
+
+It can be concluded that the t-score foremost measures collocation frequency rather than association strength.
+
+
+:::
+
+:::
+
+
 ## Association Measures and Collocation Frequency {.smaller}
 
 How _"sensitive"_ are common measures towards pure collocation frequency?

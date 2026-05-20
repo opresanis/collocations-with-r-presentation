@@ -14,6 +14,13 @@
     "text": "Why R? - General Remarks\n\n\n\nLike in many sciences, tansparency, reproducibility and replication remains a challenge in Corpus Linguistics (Schweinberger, 2026).\nSome researchers identify the field as being part of the “replication crisis” (e.g. Sönning & Werner (2021), Schweinberger (2025)).\n\n\nR, as an open source language with a broad ecosystem, can facilitate transparent research for reproducible results.\n\n\nThis presentation has been created using R, with Positron as IDE (“Integrated development environment”, https://positron.posit.co/) and the publishing system quarto (https://quarto.org/), which allows to have executable code in reports or presentations."
   },
   {
+    "objectID": "index.html#simulation-of-t-score",
+    "href": "index.html#simulation-of-t-score",
+    "title": "Collocation Analysis using R",
+    "section": "Simulation of t-score",
+    "text": "Simulation of t-score\n\n\n\n\nIn the last meeting on 6 May 2024, synthetic sample of frequency data was constructed to simulate the t-score:\n\ncorpus size 1M tokens\na simple random sample of\n\n100 collocation values between 1 and 5000\nnode and collocate frequency between 1 and 5000 but strictly larger than its corresponding collocation value\n\n\nThe plot shows the correlation between the collocation frequency and the t-score. We observe a curvilinear relationship.\nIt can be concluded that the t-score foremost measures collocation frequency rather than association strength."
+  },
+  {
     "objectID": "index.html#association-measures-and-collocation-frequency",
     "href": "index.html#association-measures-and-collocation-frequency",
     "title": "Collocation Analysis using R",
